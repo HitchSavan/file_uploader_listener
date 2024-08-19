@@ -1,0 +1,8 @@
+__pycache__
+.env
+old
+
+settings.json
+
+config.txt
+*.exe
