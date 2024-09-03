@@ -1,5 +1,5 @@
-from create_sfx import create_sfx
-from upload_to_yandex_disk import upload_to_disk
+from upload_sfx_to_yadisk.create_sfx import create_sfx
+from upload_sfx_to_yadisk.upload_to_yandex_disk import upload_to_disk
 import os
 import json
 import sys
@@ -21,26 +21,32 @@ def printer(message):
     print(message)
 
 if __name__ == '__main__':
-
-    with open('settings.json', encoding='utf-8') as json_file:
+    with open(os.path.join(os.path.dirname(sys.argv[0]), 'settings.json'), encoding='utf-8') as json_file:
         settings = json.load(json_file)
+
+    with open(os.path.join('upload_sfx_to_yadisk', 'settings.json'), encoding='utf-8') as json_file:
+        settings['token'] = json.load(json_file)['token']
     
     try:
         source_folder_path = sys.argv[1]
     except IndexError:
         print(f'Not Enough Arguments:')
-        print(f'\tusage: main.py <input build folder>')
+        print(f'\tusage: main.py <input uploading folder>')
         sys.exit(2)
 
     s = sched.scheduler(time.time, time.sleep)
 
+    # time in minutes between file presence checking
+    listen_treshold = 30
+
+    # time in minutes before uploading after file appearance
+    upload_wait = 1/60
+
     while (not check_file_presence(settings, source_folder_path)):
-        s.enter(60 * 30, 1, printer, ('file not found',))
-        # s.enter(2, 1, printer, ('file not found',))
+        s.enter(60 * listen_treshold, 1, printer, ('file not found',))
         s.run()
     
     print('file found')
-    time.sleep(60 * 5)
-    # time.sleep(2)
+    time.sleep(60 * upload_wait)
 
     upload_archive(settings, source_folder_path)
