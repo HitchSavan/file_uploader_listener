@@ -2,7 +2,7 @@
 Tool for listening for the file appearance, automatic SFX packing and uploading to yandex disk.
 Using methods from other project "upload_sfx_to_yadisk"
 
-# Settings JSON example:
+### Settings JSON example
 
 {
     "default_folder": "/folder_structure", // target folder in ya.disk (upload destination)
