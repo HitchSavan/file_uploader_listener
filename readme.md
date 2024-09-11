@@ -1,8 +1,9 @@
+# SFX uploader
 
-Tool for listening for the file appearance, automatic SFX packing and uploading to yandex disk.
+Tool for listening for the file appearance, automatic SFX packing and uploading to yandex disk
 Using methods from other project "upload_sfx_to_yadisk"
 
-### Settings JSON example
+## Settings JSON example
 
     {
         "default_folder": "/folder_structure", // target folder in ya.disk (upload destination)
@@ -16,5 +17,6 @@ Using methods from other project "upload_sfx_to_yadisk"
         "additional_files": [ // files to upload
             "\\file.img",
             "\\folder"
-        ]
+        ],
+        "use_executable_name": true // if *.exe file is found in src folder, use its filename as SFX name, othervise src folder name will be used
     }
