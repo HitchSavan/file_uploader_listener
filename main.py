@@ -6,6 +6,7 @@ import time
 from upload_sfx_to_yadisk.create_sfx import create_sfx
 from upload_sfx_to_yadisk.upload_to_yandex_disk import upload_to_disk
 
+
 def check_file_presence(_settings, _source_folder_path):
     for filename in _settings["listen_file_names"]:
         for file in os.listdir(_source_folder_path):
@@ -13,9 +14,11 @@ def check_file_presence(_settings, _source_folder_path):
                 return True
     return False
 
+
 def upload_archive(_settings, _source_folder_path):
     create_sfx(_settings, _source_folder_path)
     upload_to_disk(_settings)
+
 
 if __name__ == '__main__':
     with open(os.path.join(os.path.dirname(sys.argv[0]), 'settings.json'),
